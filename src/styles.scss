@@ -2,5 +2,12 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 body {
-  padding: 40px;
+  padding: 20px;
+  padding-top: 0;
+  overflow: hidden;
+}
+
+main {
+  padding-top: 20px;
+  min-height: 100vh;
 }

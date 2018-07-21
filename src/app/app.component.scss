@@ -31,6 +31,13 @@
   }
 }
 
+.main-background {
+  background-image: url("../assets/quiz.jpg");
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 @keyframes rotate {
   from {
     transform: translate(-50%, -50%) rotate(0deg);

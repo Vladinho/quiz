@@ -4,6 +4,7 @@ export class StateService {
     public isLoading = false;
     public tasks: any;
     public answers = [];
+    public background = true;
     public startLoading(): void {
         this.isLoading = true;
     }

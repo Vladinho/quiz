@@ -35,7 +35,7 @@
       <option value="hard">Hard</option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group mb-4">
     <label for="type">Select Type</label>
     <select class="form-control" id="type" formControlName="type">
       <option selected value="any">Any type</option>
@@ -43,5 +43,5 @@
       <option value="boolean">True/false</option>
     </select>
   </div>
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+  <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid">Go</button>
 </form>

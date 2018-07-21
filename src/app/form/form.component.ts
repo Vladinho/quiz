@@ -42,7 +42,6 @@ export class FormComponent implements OnInit {
   }
   onSubmit() {
     this.stateService.startLoading();
-    console.log(this.form);
     let str: string = '';
     for (let item in this.form.controls) {
       if (this.form.controls[item].value !== 'any')
@@ -69,6 +68,7 @@ export class FormComponent implements OnInit {
           this.stateService.stopLoading();
           this.router.navigateByUrl('tasks');
         });
+    this.stateService.background = false;
   }
 
   shuffle(array: [any]) {
