@@ -1,0 +1,47 @@
+<h1>Super Quiz!!!</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="amount">Number of Questions</label>
+    <input
+          type="number"
+          class="form-control"
+          id="amount"
+          value="10"
+          formControlName="amount"
+          max="50"
+          min="1"
+          [ngClass]="{'is-invalid': (form.get('amount').invalid && form.get('amount').touched)}"
+    >
+    <span
+        class="text-danger"
+        *ngIf="form.get('amount').invalid && form.get('amount').touched"
+    >
+      The value should be from 1 to 50!
+    </span>
+  </div>
+  <div class="form-group">
+    <label for="category">Select Category</label>
+    <select class="form-control" id="category" formControlName="category">
+      <option selected value="any">Any category</option>
+      <option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="difficulty">Select Difficulty</label>
+    <select class="form-control" id="difficulty" formControlName="difficulty">
+      <option selected value="any">Any difficulty</option>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="type">Select Type</label>
+    <select class="form-control" id="type" formControlName="type">
+      <option selected value="any">Any type</option>
+      <option value="multiple">Multiple choice</option>
+      <option value="boolean">True/false</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+</form>

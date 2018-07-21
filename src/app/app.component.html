@@ -1,3 +1,4 @@
-<h1>
-  {{title}}
-</h1>
+<main class="loading" [ngClass]="{'loading': stateService.isLoading}">
+  <app-form></app-form>
+</main>
+
