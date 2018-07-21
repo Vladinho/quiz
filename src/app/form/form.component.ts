@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {StateService} from '../services/state.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -19,7 +20,8 @@ export class FormComponent implements OnInit {
   url = 'https://opentdb.com/api.php?';
   constructor(
       private http: Http,
-      private stateService: StateService) {
+      private stateService: StateService,
+      private router: Router ) {
       stateService.startLoading();
       console.log('aaa', this.stateService.isLoading);
   }
@@ -51,9 +53,40 @@ export class FormComponent implements OnInit {
     console.log(this.url);
     this.http.get(this.url)
         .subscribe((respone: any) => {
-          console.log(respone.json());
+          let tasksWithallAnswers = [];
+          respone.json().results
+            .forEach((task: any) => {
+              task.question = task.question.replace(/&quot;/g,'"');
+              task.question = task.question.replace(/&#039;/g,'"');
+              task.allAnswers = JSON.parse(JSON.stringify(task.incorrect_answers));
+              task.allAnswers.push(task.correct_answer);
+              this.shuffle(task.allAnswers);
+              tasksWithallAnswers.push(task);
+          });
+          this.stateService.tasks = tasksWithallAnswers;
+              // console.log(respone.json());
           this.url = 'https://opentdb.com/api.php?';
           this.stateService.stopLoading();
+          this.router.navigateByUrl('tasks');
         });
+  }
+
+  shuffle(array: [any]) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   }
 }
