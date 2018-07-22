@@ -1,0 +1,45 @@
+.lives {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  height: 160px;
+
+  &__list {
+    height: 50px;
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  &__item {
+    background-color: green;
+    width: 30px;
+    height: 100%;
+    margin-left: 10px;
+
+    &:last-child{
+      margin-left: 0;
+    }
+
+    &.list__item--hidden {
+      animation-name: fadeOutDown;
+      animation-duration: 0.5s;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+}

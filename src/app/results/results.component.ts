@@ -15,10 +15,4 @@ export class ResultsComponent {
   ) {
     this.percentages = Math.floor(stateService.correctAnswers.length * 100 / stateService.answers.length);
   }
-  tryAgain() {
-    this.stateService.correctAnswers = [];
-    this.stateService.answers = [];
-    this.stateService.background = true;
-    this.router.navigateByUrl('/');
-  }
 }

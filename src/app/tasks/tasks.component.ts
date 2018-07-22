@@ -27,6 +27,7 @@ export class TasksComponent implements OnInit {
       this.stateService.correctAnswers.push(numberOfAnswer);
     } else {
       this.showYouWereWrong();
+      this.stateService.incorrectAnswers.push(numberOfAnswer);
     }
     this.curentQuestion = this.curentQuestion + 1;
     if (this.curentQuestion > this.stateService.tasks.length - 1) {

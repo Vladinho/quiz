@@ -1,0 +1,45 @@
+.overlay {
+  visibility: hidden;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s;
+
+  &--visible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.game-over {
+  padding: 20px;
+  width: 500px;
+
+  &.game-over--visible {
+    animation-name: fadeInUp;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}

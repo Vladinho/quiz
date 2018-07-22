@@ -9,6 +9,8 @@ import {StateService} from './services/state.service';
 import {RouterModule, Routes} from '@angular/router';
 import { TasksComponent } from './tasks/tasks.component';
 import { ResultsComponent } from './results/results.component';
+import { LivesComponent } from './lives/lives.component';
+import { GameOverComponent } from './game-over/game-over.component';
 
 const routes: Routes = [
   {path: '', component: FormComponent},
@@ -21,7 +23,9 @@ const routes: Routes = [
     AppComponent,
     FormComponent,
     TasksComponent,
-    ResultsComponent
+    ResultsComponent,
+    LivesComponent,
+    GameOverComponent
   ],
   imports: [
     BrowserModule,
