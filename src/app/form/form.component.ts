@@ -23,14 +23,12 @@ export class FormComponent implements OnInit, OnDestroy {
       private stateService: StateService,
       private router: Router ) {
       stateService.startLoading();
-      console.log('aaa', this.stateService.isLoading);
   }
 
   ngOnInit() {
     this.subscribe = this.http.get('https://opentdb.com/api_category.php')
         .subscribe((respone: any) => {
       this.categories = respone.json().trivia_categories;
-      console.log(this.categories);
       this.stateService.stopLoading();
     });
     this.form = new FormGroup({
@@ -49,7 +47,6 @@ export class FormComponent implements OnInit, OnDestroy {
     }
     str = str.slice(0, -1);
     this.url += str;
-    console.log(this.url);
     this.http.get(this.url)
         .subscribe((respone: any) => {
           let tasksWithallAnswers = [];

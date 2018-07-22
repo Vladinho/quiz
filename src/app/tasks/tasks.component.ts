@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {StateService} from '../services/state.service';
-import {FormControl, FormGroup, NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,9 +7,8 @@ import {Router} from '@angular/router';
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss']
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent {
   tasks;
-  // curentQuestion = 0;
   youAreRight = false;
   youAreWrong = false;
   constructor(
@@ -18,7 +16,6 @@ export class TasksComponent implements OnInit {
       private router: Router
   ) {
     this.tasks = stateService.tasks;
-    // stateService.curentQuestion = 0;
   }
 
   doAnswer (numberOfQuestion: number, numberOfAnswer: number): void {
@@ -36,13 +33,6 @@ export class TasksComponent implements OnInit {
       this.router.navigateByUrl('results');
     }
     this.stateService.addTime();
-  }
-
-  ngOnInit() {
-  }
-
-  onSubmit(event: Event) {
-    console.log(event);
   }
 
   showYouWereRight () {
