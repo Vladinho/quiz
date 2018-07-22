@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">№</th>
+    <th scope="col">Your answer</th>
+    <th scope="col">Correct answer</th>
+    <th scope="col">Result</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let question of stateService.tasks; let i = index">
+    <th scope="row">{{i + 1}}</th>
+    <td>{{question.allAnswers[stateService.answers[i]]}}</td>
+    <td>{{question.correct_answer}}</td>
+    <td class="text-success" *ngIf="question.allAnswers[stateService.answers[i]] === question.correct_answer">right</td>
+    <td class="text-danger" *ngIf="question.allAnswers[stateService.answers[i]] !== question.correct_answer">wrong</td>
+  </tr>
+  </tbody>
+  <tfoot>
+    <tr class="h4">
+      <td colspan="3">Result</td>
+      <td>{{stateService.correctAnswers.length}}
+        ({{percentages}}%)</td>
+    </tr>
+  </tfoot>
+</table>
+<button (click)="tryAgain()" class="btn btn-primary btn-lg">Try again</button>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StateService} from '../services/state.service';
 import {FormControl, FormGroup, NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -8,29 +9,29 @@ import {FormControl, FormGroup, NgForm} from '@angular/forms';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
-  private tasks;
+  tasks;
   curentQuestion = 0;
   youAreRight = false;
   youAreWrong = false;
-  constructor(private stateService: StateService) {
+  constructor(
+      private stateService: StateService,
+      private router: Router
+  ) {
     this.tasks = stateService.tasks;
-    console.log(this.tasks);
-  }
-
-  show () {
-    console.log(this.tasks);
   }
 
   doAnswer (numberOfQuestion: number, numberOfAnswer: number): void {
-    console.log(numberOfQuestion, numberOfAnswer);
     this.stateService.answers.push(numberOfAnswer);
-    if (this.stateService.tasks[numberOfQuestion].allAnswers[numberOfAnswer] == this.stateService.tasks[numberOfQuestion].correct_answer) {
+    if (this.stateService.tasks[numberOfQuestion].allAnswers[numberOfAnswer] === this.stateService.tasks[numberOfQuestion].correct_answer) {
       this.showYouWereRight();
+      this.stateService.correctAnswers.push(numberOfAnswer);
     } else {
       this.showYouWereWrong();
     }
     this.curentQuestion = this.curentQuestion + 1;
-    console.log(this.stateService.answers);
+    if (this.curentQuestion > this.stateService.tasks.length - 1) {
+      this.router.navigateByUrl('results');
+    }
   }
 
   ngOnInit() {
@@ -53,5 +54,4 @@ export class TasksComponent implements OnInit {
       this.youAreWrong = false;
     }, 1000);
   }
-
 }

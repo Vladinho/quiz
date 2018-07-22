@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   subscribe: Subscription;
   form: FormGroup;
   categories;
@@ -63,7 +63,6 @@ export class FormComponent implements OnInit {
               tasksWithallAnswers.push(task);
           });
           this.stateService.tasks = tasksWithallAnswers;
-              // console.log(respone.json());
           this.url = 'https://opentdb.com/api.php?';
           this.stateService.stopLoading();
           this.router.navigateByUrl('tasks');
@@ -89,4 +88,7 @@ export class FormComponent implements OnInit {
 
     return array;
   }
+  ngOnDestroy() {
+      this.subscribe.unsubscribe();
+}
 }

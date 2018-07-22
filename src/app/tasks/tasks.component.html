@@ -3,13 +3,6 @@
   <div class="card-body">
     <h5 class="card-title">Qustion №{{numberOfQuestion + 1}}</h5>
     <p class="card-text">{{task.question}}</p>
-    <!--<form (ngSubmit)="onSubmit($event)">-->
-      <!--<div class="custom-control custom-radio mb-2" *ngFor="let answer of task.allAnswers; let numOfAnswer = index">-->
-        <!--<input type="radio" class="custom-control-input" id="{{'radio-stacked' + num + '-' + numOfAnswer}}" name="{{'radio-stacked' + num}}" required>-->
-        <!--<label class="custom-control-label" for="{{'radio-stacked' + num + '-' + numOfAnswer}}">{{answer}}</label>-->
-      <!--</div>-->
-      <!--<button class="btn btn-primary mt-2">Answer</button>-->
-    <!--</form>-->
     <form >
       <button class="btn btn-primary mr-2 mb-2"
               *ngFor="let answer of task.allAnswers; let numberOfAnswer = index"
@@ -20,5 +13,5 @@
     </form>
   </div>
 </div>
-<span class="correct-answer" *ngIf="youAreRight">Correct</span>
-<span class="incorrect-answer" *ngIf="youAreWrong">Incorrect</span>
+<span class="correct-answer text-success" *ngIf="youAreRight">Correct</span>
+<span class="incorrect-answer text-danger" *ngIf="youAreWrong">Incorrect</span>

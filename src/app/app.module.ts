@@ -8,17 +8,20 @@ import { FormComponent } from './form/form.component';
 import {StateService} from './services/state.service';
 import {RouterModule, Routes} from '@angular/router';
 import { TasksComponent } from './tasks/tasks.component';
+import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
   {path: '', component: FormComponent},
-  {path: 'tasks', component: TasksComponent}
+  {path: 'tasks', component: TasksComponent},
+  {path: 'results', component: ResultsComponent},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
-    TasksComponent
+    TasksComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
