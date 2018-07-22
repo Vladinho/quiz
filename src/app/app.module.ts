@@ -11,6 +11,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { ResultsComponent } from './results/results.component';
 import { LivesComponent } from './lives/lives.component';
 import { GameOverComponent } from './game-over/game-over.component';
+import { TimerComponent } from './timer/timer.component';
 
 const routes: Routes = [
   {path: '', component: FormComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
     TasksComponent,
     ResultsComponent,
     LivesComponent,
-    GameOverComponent
+    GameOverComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,

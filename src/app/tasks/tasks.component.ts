@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class TasksComponent implements OnInit {
   tasks;
-  curentQuestion = 0;
+  // curentQuestion = 0;
   youAreRight = false;
   youAreWrong = false;
   constructor(
@@ -18,6 +18,7 @@ export class TasksComponent implements OnInit {
       private router: Router
   ) {
     this.tasks = stateService.tasks;
+    // stateService.curentQuestion = 0;
   }
 
   doAnswer (numberOfQuestion: number, numberOfAnswer: number): void {
@@ -29,10 +30,12 @@ export class TasksComponent implements OnInit {
       this.showYouWereWrong();
       this.stateService.incorrectAnswers.push(numberOfAnswer);
     }
-    this.curentQuestion = this.curentQuestion + 1;
-    if (this.curentQuestion > this.stateService.tasks.length - 1) {
+    this.stateService.incrementCurrentQuestion();
+    if (this.stateService.curentQuestion > this.stateService.tasks.length - 1) {
+      clearInterval(this.stateService.timer);
       this.router.navigateByUrl('results');
     }
+    this.stateService.addTime();
   }
 
   ngOnInit() {

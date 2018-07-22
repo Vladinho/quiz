@@ -1,0 +1,13 @@
+.timer {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  width: 300px;
+  padding: 10px;
+  text-align: center;
+
+  &__counter {
+    font-size: 60px;
+    letter-spacing: 5px;
+  }
+}

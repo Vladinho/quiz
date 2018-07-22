@@ -1,4 +1,4 @@
-<div class="card" *ngFor="let task of this.tasks; let numberOfQuestion = index" [ngClass]="{'show': curentQuestion == numberOfQuestion}">
+<div class="card" *ngFor="let task of this.tasks; let numberOfQuestion = index" [ngClass]="{'show': stateService.curentQuestion == numberOfQuestion}">
   <h5 class="card-header">{{task.category}}</h5>
   <div class="card-body">
     <h5 class="card-title">Qustion №{{numberOfQuestion + 1}}</h5>
@@ -16,4 +16,5 @@
 <span class="correct-answer text-success" *ngIf="youAreRight">Correct</span>
 <span class="incorrect-answer text-danger" *ngIf="youAreWrong">Incorrect</span>
 <app-lives></app-lives>
+<app-timer></app-timer>
 <app-game-over></app-game-over>
