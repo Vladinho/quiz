@@ -5,8 +5,6 @@ import {Subscription} from 'rxjs/Subscription';
 import {StateService} from '../services/state.service';
 import {Router} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-form',
@@ -64,8 +62,9 @@ export class FormComponent implements OnInit, OnDestroy {
           let tasksWithallAnswers = [];
           respone.json().results
             .forEach((task: any) => {
-              task.question = task.question.replace(/&quot;/g,'"');
-              task.question = task.question.replace(/&#039;/g,'"');
+              task.question = this.clearStr(task.question);
+              task.incorrect_answers = task.incorrect_answers.map(answ => this.clearStr(answ));
+              task.correct_answer = this.clearStr(task.correct_answer);
               task.allAnswers = JSON.parse(JSON.stringify(task.incorrect_answers));
               task.allAnswers.push(task.correct_answer);
               this.shuffle(task.allAnswers);
@@ -81,6 +80,11 @@ export class FormComponent implements OnInit, OnDestroy {
           this.stateService.stopLoading();
         });
     this.stateService.background = false;
+  }
+
+  clearStr(str: string) {
+    return str.replace(/&quot;/g,'"')
+              .replace(/&#039;/g,'"');
   }
 
   shuffle(array: [any]) {

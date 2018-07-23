@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StateService} from './services/state.service';
 import {NavigationEnd, Router} from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,10 @@ export class AppComponent implements OnInit{
   }
   ngOnInit() {
     this.router.events
-      // .filter( event => event instanceof NavigationEnd)
+      .filter( event => event instanceof NavigationEnd)
       .subscribe((val: any) => {
       if (val.url === '/') {
+        console.log(val);
         this.stateService.reset();
       }
     });
