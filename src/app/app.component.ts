@@ -22,7 +22,6 @@ export class AppComponent implements OnInit{
       .filter( event => event instanceof NavigationEnd)
       .subscribe((val: any) => {
       if (val.url === '/') {
-        console.log(val);
         this.stateService.reset();
       }
     });
