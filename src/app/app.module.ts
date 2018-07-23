@@ -12,6 +12,7 @@ import { ResultsComponent } from './results/results.component';
 import { LivesComponent } from './lives/lives.component';
 import { GameOverComponent } from './game-over/game-over.component';
 import { TimerComponent } from './timer/timer.component';
+import { ModalWindowComponent } from './modal-window/modal-window.component';
 
 const routes: Routes = [
   {path: '', component: FormComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
     ResultsComponent,
     LivesComponent,
     GameOverComponent,
-    TimerComponent
+    TimerComponent,
+    ModalWindowComponent
   ],
   imports: [
     BrowserModule,

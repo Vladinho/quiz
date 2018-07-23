@@ -4,7 +4,7 @@ import set = Reflect.set;
 @Injectable()
 export class StateService {
     public isLoading = false;
-    public tasks: any;
+    public tasks = [];
     public answers = [];
     public correctAnswers = [];
     public incorrectAnswers = [];
@@ -13,6 +13,9 @@ export class StateService {
     public curentQuestion = 0;
     public time = 10;
     public timer: any;
+    public statusCode = 200;
+    public statusText = '';
+    public emptyTasks = false;
     constructor (private router: Router) {}
     public startLoading(): void {
         this.isLoading = true;
@@ -41,12 +44,19 @@ export class StateService {
         }
     }
     public tryAgain() {
-        clearInterval(this.timer);
-        this.correctAnswers = [];
-        this.incorrectAnswers = [];
-        this.answers = [];
-        this.background = true;
-        this.curentQuestion = 0;
+        this.reset();
         this.router.navigateByUrl('/');
     }
+
+  public reset() {
+    clearInterval(this.timer);
+    this.correctAnswers = [];
+    this.incorrectAnswers = [];
+    this.answers = [];
+    this.background = true;
+    this.curentQuestion = 0;
+    this.statusCode = 200;
+    this.emptyTasks = false;
+    this.statusText = '';
+  }
 }

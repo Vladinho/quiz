@@ -1,0 +1,32 @@
+.overlay {
+  visibility: hidden;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s;
+  z-index: 9999999;
+
+  &--visible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.modal-window {
+  padding: 20px;
+  width: 500px;
+
+  &.modal-window--visible {
+    animation-name: fadeInUp;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+}

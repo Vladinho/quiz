@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StateService} from './services/state.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,21 @@ import {StateService} from './services/state.service';
       './app.component.scss'
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   isLoading;
-  constructor(private stateService: StateService) {
-    // this.isLoading = stateService.isLoading;
+  constructor(
+    private stateService: StateService,
+    private router: Router
+  ) {
+  }
+  ngOnInit() {
+    this.router.events
+      // .filter( event => event instanceof NavigationEnd)
+      .subscribe((val: any) => {
+      console.log(val);
+      if (val.url === '/') {
+        this.stateService.reset();
+      }
+    });
   }
 }

@@ -4,6 +4,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {StateService} from '../services/state.service';
 import {Router} from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-form',
@@ -27,12 +30,18 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribe = this.http.get('https://opentdb.com/api_category.php')
-        .subscribe((respone: any) => {
-      this.categories = respone.json().trivia_categories;
+      .catch((err) => {
+      this.stateService.statusCode = err.status;
+      this.stateService.statusText = err.statusText;
       this.stateService.stopLoading();
+      return Observable.throw(err);
+    })
+        .subscribe((respone: any) => {
+        this.categories = respone.json().trivia_categories;
+        this.stateService.stopLoading();
     });
     this.form = new FormGroup({
-      'amount': new FormControl(10, [Validators.max(50), Validators.min(1)]),
+      'amount': new FormControl(10, [Validators.max(50), Validators.min(1), Validators.required]),
       'category': new FormControl('any', []),
       'difficulty': new FormControl('any', []),
       'type': new FormControl('any', []),
@@ -48,6 +57,13 @@ export class FormComponent implements OnInit, OnDestroy {
     str = str.slice(0, -1);
     this.url += str;
     this.http.get(this.url)
+        .catch((err) => {
+          console.log(777, err);
+          this.stateService.statusCode = err.status;
+          this.stateService.stopLoading();
+          // Do messaging and error handling here
+          return Observable.throw(err);
+        })
         .subscribe((respone: any) => {
           let tasksWithallAnswers = [];
           respone.json().results
@@ -59,10 +75,15 @@ export class FormComponent implements OnInit, OnDestroy {
               this.shuffle(task.allAnswers);
               tasksWithallAnswers.push(task);
           });
-          this.stateService.tasks = tasksWithallAnswers;
+          if (tasksWithallAnswers.length === 0) {
+            this.stateService.emptyTasks = true;
+            console.log('aaaaaabbbbbb', tasksWithallAnswers, this.url);
+          } else {
+            this.stateService.tasks = tasksWithallAnswers;
+            this.router.navigateByUrl('tasks');
+          }
           this.url = 'https://opentdb.com/api.php?';
           this.stateService.stopLoading();
-          this.router.navigateByUrl('tasks');
         });
     this.stateService.background = false;
   }
