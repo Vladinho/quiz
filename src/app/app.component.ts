@@ -20,7 +20,6 @@ export class AppComponent implements OnInit{
     this.router.events
       // .filter( event => event instanceof NavigationEnd)
       .subscribe((val: any) => {
-      console.log(val);
       if (val.url === '/') {
         this.stateService.reset();
       }

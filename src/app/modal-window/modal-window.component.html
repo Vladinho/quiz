@@ -4,7 +4,7 @@
     <p class="card-text" *ngIf="stateService.statusCode !== 200">Response status {{stateService.statusCode}}.
     {{stateService.statusText}}
     </p>
-    <p class="card-text" *ngIf="stateService.emptyTasks">Sory. We have't these questions! :(</p>
+    <p class="card-text" *ngIf="stateService.emptyTasks">Sorry. We have't so many these questions! :(</p>
     <button (click)="stateService.tryAgain()" class="btn btn-primary btn-lg">Try again</button>
   </div>
 </div>

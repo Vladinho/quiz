@@ -11,11 +11,12 @@ export class StateService {
     public countOflives: number;
     public background = true;
     public curentQuestion = 0;
-    public time = 10;
+    public countOfTime = 10;
     public timer: any;
     public statusCode = 200;
     public statusText = '';
     public emptyTasks = false;
+    public time = this.countOfTime;
     constructor (private router: Router) {}
     public startLoading(): void {
         this.isLoading = true;
@@ -24,7 +25,7 @@ export class StateService {
         this.isLoading = false;
     }
     public addTime(): void {
-        this.time = 10;
+        this.time = this.countOfTime;
     }
 
     public createTimer() {

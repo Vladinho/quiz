@@ -18,8 +18,6 @@ export class FormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   categories;
   amount: number;
-  level: string;
-  type: string;
   url = 'https://opentdb.com/api.php?';
   constructor(
       private http: Http,
@@ -58,10 +56,8 @@ export class FormComponent implements OnInit, OnDestroy {
     this.url += str;
     this.http.get(this.url)
         .catch((err) => {
-          console.log(777, err);
           this.stateService.statusCode = err.status;
           this.stateService.stopLoading();
-          // Do messaging and error handling here
           return Observable.throw(err);
         })
         .subscribe((respone: any) => {
@@ -77,7 +73,6 @@ export class FormComponent implements OnInit, OnDestroy {
           });
           if (tasksWithallAnswers.length === 0) {
             this.stateService.emptyTasks = true;
-            console.log('aaaaaabbbbbb', tasksWithallAnswers, this.url);
           } else {
             this.stateService.tasks = tasksWithallAnswers;
             this.router.navigateByUrl('tasks');
