@@ -83,8 +83,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   clearStr(str: string) {
-    return str.replace(/&quot;/g,'"')
-              .replace(/&#039;/g,'"');
+    return str.replace(/&[^;]|uot;|039;|hy;/g,'');
   }
 
   shuffle(array: [any]) {
