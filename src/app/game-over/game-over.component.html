@@ -1,5 +1,5 @@
-<div class="overlay" [ngClass]="{'overlay--visible' : stateService.countOflives === stateService.incorrectAnswers.length}">
-  <div class="game-over card" [ngClass]="{'game-over--visible' : stateService.countOflives === stateService.incorrectAnswers.length}">
+<div class="overlay" *ngIf="stateService.countOflives === stateService.incorrectAnswers.length">
+  <div class="game-over card">
     <h3 class="card-title">Game Over</h3>
     <p class="card-text">You lost! Don't worry. You can try again.</p>
     <button (click)="stateService.tryAgain()" class="btn btn-primary btn-lg">Try again</button>
