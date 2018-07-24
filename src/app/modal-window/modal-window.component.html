@@ -1,4 +1,4 @@
-<div class="overlay" [ngClass]="{'overlay--visible' : ((stateService.statusCode !== 200) || stateService.emptyTasks)}">
+<div class="overlay" *ngIf="((stateService.statusCode !== 200) || stateService.emptyTasks)">
   <div class="modal-window card modal-window--visible">
     <h3 class="card-title">Server error</h3>
     <p class="card-text" *ngIf="stateService.statusCode !== 200">Response status {{stateService.statusCode}}.
