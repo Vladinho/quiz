@@ -13,7 +13,6 @@ export class TasksComponent {
   youAreWrong = false;
 
   constructor(private stateService: StateService,
-              private cdr: ChangeDetectorRef,
               private router: Router) {
     this.tasks = stateService.tasks;
   }
@@ -33,7 +32,6 @@ export class TasksComponent {
       this.router.navigateByUrl('results');
     }
     this.stateService.addTime();
-    this.cdr.detectChanges();
   }
 
   showYouWereRight() {
