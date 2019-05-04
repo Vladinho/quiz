@@ -60,4 +60,14 @@ export class StateService {
     this.emptyTasks = false;
     this.statusText = '';
   }
+
+  public showBackground() {
+    this.background = true;
+  }
+
+  public hideBackground() {
+    this.background = false;
+  }
+
+
 }

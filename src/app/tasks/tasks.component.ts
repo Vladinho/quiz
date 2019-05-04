@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StateService} from '../services/state.service';
 import {Router} from '@angular/router';
 
@@ -11,16 +11,15 @@ export class TasksComponent {
   tasks;
   youAreRight = false;
   youAreWrong = false;
-  constructor(
-      private stateService: StateService,
-      private router: Router
-  ) {
+
+  constructor(private stateService: StateService,
+              private router: Router) {
     this.tasks = stateService.tasks;
   }
 
-  doAnswer (numberOfQuestion: number, numberOfAnswer: number): void {
+  doAnswer(task: any, numberOfAnswer: number): void {
     this.stateService.answers.push(numberOfAnswer);
-    if (this.stateService.tasks[numberOfQuestion].allAnswers[numberOfAnswer] === this.stateService.tasks[numberOfQuestion].correct_answer) {
+    if (task.allAnswers[numberOfAnswer] === task.correct_answer) {
       this.showYouWereRight();
       this.stateService.correctAnswers.push(numberOfAnswer);
     } else {
@@ -35,17 +34,19 @@ export class TasksComponent {
     this.stateService.addTime();
   }
 
-  showYouWereRight () {
+  showYouWereRight() {
     this.youAreRight = true;
     setTimeout(() => {
       this.youAreRight = false;
     }, 1000);
   }
 
-  showYouWereWrong () {
+  showYouWereWrong() {
     this.youAreWrong = true;
     setTimeout(() => {
       this.youAreWrong = false;
     }, 1000);
   }
 }
+
+

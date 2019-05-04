@@ -1,4 +1,7 @@
-<main class="loading" [ngClass]="{'loading': stateService.isLoading, 'main-background': stateService.background}">
+<main [ngClass]="{
+        'loading': stateService.isLoading,
+        'main-background': stateService.background
+      }">
   <router-outlet></router-outlet>
 </main>
 

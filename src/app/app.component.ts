@@ -1,29 +1,33 @@
 import {Component, OnInit} from '@angular/core';
-import {StateService} from './services/state.service';
 import {NavigationEnd, Router} from '@angular/router';
+
 import 'rxjs/add/operator/filter';
+
+import {StateService} from './services/state.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: [
-      './app.component.scss'
+    './app.component.scss'
   ]
 })
-export class AppComponent implements OnInit{
-  isLoading;
-  constructor(
-    private stateService: StateService,
-    private router: Router
-  ) {
+export class AppComponent implements OnInit {
+  constructor(private stateService: StateService,
+              private router: Router) {
   }
+
   ngOnInit() {
     this.router.events
-      .filter( event => event instanceof NavigationEnd)
+      .filter(event => event instanceof NavigationEnd)
       .subscribe((val: any) => {
-      if (val.url === '/') {
-        this.stateService.reset();
-      }
-    });
+        if (val.url === '/') {
+          this.stateService.showBackground();
+          this.stateService.reset();
+        } else {
+          this.stateService.hideBackground();
+        }
+      });
   }
 }

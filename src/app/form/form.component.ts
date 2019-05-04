@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {StateService} from '../services/state.service';
 import {Router} from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-form',
@@ -17,25 +17,25 @@ export class FormComponent implements OnInit, OnDestroy {
   categories;
   amount: number;
   url = 'https://opentdb.com/api.php?';
-  constructor(
-      private http: Http,
-      private stateService: StateService,
-      private router: Router ) {
-      stateService.startLoading();
+
+  constructor(private http: HttpClient,
+              private stateService: StateService,
+              private router: Router) {
+    stateService.startLoading();
   }
 
   ngOnInit() {
     this.subscribe = this.http.get('https://opentdb.com/api_category.php')
       .catch((err) => {
-      this.stateService.statusCode = err.status;
-      this.stateService.statusText = err.statusText;
-      this.stateService.stopLoading();
-      return Observable.throw(err);
-    })
-        .subscribe((respone: any) => {
-        this.categories = respone.json().trivia_categories;
+        this.stateService.statusCode = err.status;
+        this.stateService.statusText = err.statusText;
         this.stateService.stopLoading();
-    });
+        return Observable.throw(err);
+      })
+      .subscribe((respone: any) => {
+        this.categories = respone.trivia_categories;
+        this.stateService.stopLoading();
+      });
     this.form = new FormGroup({
       'amount': new FormControl(10, [Validators.max(50), Validators.min(1), Validators.required]),
       'category': new FormControl('any', []),
@@ -43,6 +43,7 @@ export class FormComponent implements OnInit, OnDestroy {
       'type': new FormControl('any', []),
     });
   }
+
   onSubmit() {
     this.stateService.startLoading();
     let str: string = '';
@@ -53,37 +54,36 @@ export class FormComponent implements OnInit, OnDestroy {
     str = str.slice(0, -1);
     this.url += str;
     this.http.get(this.url)
-        .catch((err) => {
-          this.stateService.statusCode = err.status;
-          this.stateService.stopLoading();
-          return Observable.throw(err);
-        })
-        .subscribe((respone: any) => {
-          let tasksWithallAnswers = [];
-          respone.json().results
-            .forEach((task: any) => {
-              task.question = this.clearStr(task.question);
-              task.incorrect_answers = task.incorrect_answers.map(answ => this.clearStr(answ));
-              task.correct_answer = this.clearStr(task.correct_answer);
-              task.allAnswers = JSON.parse(JSON.stringify(task.incorrect_answers));
-              task.allAnswers.push(task.correct_answer);
-              this.shuffle(task.allAnswers);
-              tasksWithallAnswers.push(task);
+      .catch((err) => {
+        this.stateService.statusCode = err.status;
+        this.stateService.stopLoading();
+        return Observable.empty();
+      })
+      .subscribe((response: any) => {
+        let tasksWithallAnswers = [];
+        response.results
+          .forEach((task: any) => {
+            task.question = this.clearStr(task.question);
+            task.incorrect_answers = task.incorrect_answers.map(answ => this.clearStr(answ));
+            task.correct_answer = this.clearStr(task.correct_answer);
+            task.allAnswers = JSON.parse(JSON.stringify(task.incorrect_answers));
+            task.allAnswers.push(task.correct_answer);
+            this.shuffle(task.allAnswers);
+            tasksWithallAnswers.push(task);
           });
-          if (tasksWithallAnswers.length === 0) {
-            this.stateService.emptyTasks = true;
-          } else {
-            this.stateService.tasks = tasksWithallAnswers;
-            this.router.navigateByUrl('tasks');
-          }
-          this.url = 'https://opentdb.com/api.php?';
-          this.stateService.stopLoading();
-        });
-    this.stateService.background = false;
+        if (tasksWithallAnswers.length === 0) {
+          this.stateService.emptyTasks = true;
+        } else {
+          this.stateService.tasks = tasksWithallAnswers;
+          this.router.navigateByUrl('tasks');
+        }
+        this.url = 'https://opentdb.com/api.php?';
+        this.stateService.stopLoading();
+      });
   }
 
   clearStr(str: string) {
-    return str.replace(/&[^;]|uot;|039;|hy;/g,'');
+    return str.replace(/&[^;]|uot;|039;|hy;/g, '');
   }
 
   shuffle(array: [any]) {
@@ -104,7 +104,8 @@ export class FormComponent implements OnInit, OnDestroy {
 
     return array;
   }
+
   ngOnDestroy() {
-      this.subscribe.unsubscribe();
-}
+    this.subscribe.unsubscribe();
+  }
 }
