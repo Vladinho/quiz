@@ -11,9 +11,9 @@ form {
   @media ($mobil-screen) {
     position: absolute;
     padding: 20px;
-    top: 50%;
+    top: 80px;
     left: 50%;
-    transform: translateX(-50%) translateY(calc(-50% + 25px));
+    transform: translateX(-50%);
     min-width: 280px;
   }
 }
