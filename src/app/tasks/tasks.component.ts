@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {StateService} from '../services/state.service';
 import {Router} from '@angular/router';
-import {LivesComponent} from '../lives/lives.component';
 
 @Component({
   selector: 'app-tasks',
@@ -12,9 +11,9 @@ export class TasksComponent {
   tasks;
   youAreRight = false;
   youAreWrong = false;
-  @ViewChild(LivesComponent) lives: LivesComponent;
 
   constructor(private stateService: StateService,
+              private cdr: ChangeDetectorRef,
               private router: Router) {
     this.tasks = stateService.tasks;
   }
@@ -34,7 +33,7 @@ export class TasksComponent {
       this.router.navigateByUrl('results');
     }
     this.stateService.addTime();
-    this.lives.update();
+    this.cdr.detectChanges();
   }
 
   showYouWereRight() {
