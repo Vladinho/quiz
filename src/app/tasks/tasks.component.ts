@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {StateService} from '../services/state.service';
 import {Router} from '@angular/router';
+import {LivesComponent} from '../lives/lives.component';
 
 @Component({
   selector: 'app-tasks',
@@ -11,6 +12,7 @@ export class TasksComponent {
   tasks;
   youAreRight = false;
   youAreWrong = false;
+  @ViewChild(LivesComponent) lives: LivesComponent;
 
   constructor(private stateService: StateService,
               private router: Router) {
@@ -32,6 +34,7 @@ export class TasksComponent {
       this.router.navigateByUrl('results');
     }
     this.stateService.addTime();
+    this.lives.update();
   }
 
   showYouWereRight() {

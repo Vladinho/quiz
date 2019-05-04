@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {StateService} from '../services/state.service';
 
 @Component({
@@ -8,10 +8,16 @@ import {StateService} from '../services/state.service';
 })
 export class LivesComponent {
   lives = [];
-  constructor(private stateService: StateService) {
+  constructor(private stateService: StateService,
+              private cdr: ChangeDetectorRef
+  ) {
     stateService.countOflives = Math.ceil(stateService.tasks.length * 0.3);
     for (let i = 0; i < this.stateService.countOflives; i++) {
       this.lives.push(i);
     }
+  }
+
+  public update() {
+    this.cdr.detectChanges();
   }
 }
