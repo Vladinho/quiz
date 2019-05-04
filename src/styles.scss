@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/animate.css/animate.css";
+@import "app/variables";
 
 body {
   padding: 20px;
@@ -14,4 +15,64 @@ body, html, main {
 
 main {
   padding-top: 20px;
+
+  @media ($mobil-screen) {
+    overflow-x: hidden;
+  }
+}
+
+.btn {
+  @media ($mobil-screen) {
+    white-space: normal !important;
+  }
+}
+
+.loading {
+  &:before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 1s;
+    animation-name: rotate;
+    animation-iteration-count: infinite;
+    z-index: 999;
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 60px 60px;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgZmlsbD0iI2ZmZiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyLDRWMkExMCwxMCAwIDAsMCAyLDEySDRBOCw4IDAgMCwxIDEyLDRaIiAvPjwvc3ZnPg==);
+  }
+}
+
+.main-background {
+  background-image: url("assets/quiz.jpg");
+  background-size: 1200px 500px;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }

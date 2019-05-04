@@ -11,7 +11,7 @@ export class StateService {
     public countOflives: number;
     public background = true;
     public curentQuestion = 0;
-    public countOfTime = 10;
+    public countOfTime = 20;
     public timer: any;
     public statusCode = 200;
     public statusText = '';

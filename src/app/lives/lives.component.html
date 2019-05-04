@@ -1,5 +1,7 @@
 <div class="lives card">
-  <h3 class="card-header">Lives</h3>
+  <h3 class="card-header">Lives
+    <app-timer></app-timer>
+  </h3>
   <ul class="lives__list card-body">
     <li class="lives__item" [ngClass]="{'list__item--hidden': stateService.incorrectAnswers[i] !== undefined}" *ngFor="let live of lives; let i = index"></li>
   </ul>

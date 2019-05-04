@@ -1,3 +1,5 @@
+@import "../variables";
+
 form {
   margin: 0 auto;
   padding: 40px;
@@ -5,6 +7,14 @@ form {
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 1px 3px 35px 8px rgba(0,0,0,0.27);
   border-radius: 5px;
+
+  @media ($mobil-screen) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    min-width: 280px;
+  }
 }
 
 label {
