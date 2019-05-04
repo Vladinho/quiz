@@ -11,6 +11,7 @@
 }
 
 .correct-answer {
+  z-index: 2;
   font-weight: bold;
   font-size: 60px;
   position: absolute;
@@ -22,6 +23,7 @@
 }
 
 .incorrect-answer {
+  z-index: 2;
   font-weight: bold;
   font-size: 60px;
   position: absolute;
